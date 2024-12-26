@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import { useTransactions } from '../context/TransactionContext';
 import { ArrowLeft } from 'lucide-react';
-
+import { Button } from 'react-bootstrap'
 export function TransactionDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -18,13 +18,14 @@ export function TransactionDetails() {
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
             Transaction not found
           </h2>
-          <button
+          <Button
+            variant="primary"
             onClick={() => navigate('/dashboard')}
-            className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark"
+            // className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Dashboard
-          </button>
+          </Button>
         </div>
       </div>
     );
@@ -33,13 +34,14 @@ export function TransactionDetails() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <button
+        <Button
+        variant="primary"
           onClick={() => navigate('/dashboard')}
           className="mb-8 inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Dashboard
-        </button>
+        </Button>
 
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
           <div className="px-4 py-5 sm:p-6">
@@ -72,11 +74,10 @@ export function TransactionDetails() {
                 </dt>
                 <dd className="mt-1">
                   <span
-                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                      transaction.type === 'income'
+                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${transaction.type === 'income'
                         ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
                         : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-                    }`}
+                      }`}
                   >
                     {transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1)}
                   </span>
