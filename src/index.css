@@ -1,17 +1,35 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import '~bootstrap/dist/css/bootstrap.min.css';
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Custom theme colors */
+:root {
+  --bs-primary: #3b82f6;
+  --bs-primary-rgb: 59, 130, 246;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Dark mode overrides */
+[data-bs-theme="dark"] {
+  --bs-body-bg: #1a1d23;
+  --bs-body-color: #e5e7eb;
+  --bs-body-bg-rgb: 26, 29, 35;
+  --bs-body-color-rgb: 229, 231, 235;
+  --bs-card-bg: #242832;
+  --bs-navbar-bg: #242832;
+}
+
+/* Light mode overrides */
+[data-bs-theme="light"] {
+  --bs-body-bg: #f8f9fa;
+  --bs-body-color: #212529;
+  --bs-card-bg: #ffffff;
+  --bs-navbar-bg: #ffffff;
+}
+
+/* Apply navbar background color */
+.navbar {
+  background-color: var(--bs-navbar-bg) !important;
+}
+
+/* Apply card background color */
+.card {
+  background-color: var(--bs-card-bg) !important;
 }

@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 
-
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
@@ -12,14 +11,14 @@ export function ThemeProvider({ children }) {
 
   useEffect(() => {
     localStorage.setItem('theme', theme);
-    updateThemeClass();
+    updateTheme();
   }, [theme]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = () => {
       if (theme === 'system') {
-        updateThemeClass();
+        updateTheme();
       }
     };
 
@@ -27,12 +26,12 @@ export function ThemeProvider({ children }) {
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, [theme]);
 
-  const updateThemeClass = () => {
-    const isDark = 
-      theme === 'dark' || 
+  const updateTheme = () => {
+    const isDark =
+      theme === 'dark' ||
       (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    
-    document.documentElement.classList.toggle('dark', isDark);
+
+    document.documentElement.setAttribute('data-bs-theme', isDark ? 'dark' : 'light');
   };
 
   return (

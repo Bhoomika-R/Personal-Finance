@@ -1,4 +1,5 @@
 import React from 'react';
+import { ButtonGroup, Button } from 'react-bootstrap';
 import { Sun, Moon, Monitor } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
@@ -6,28 +7,24 @@ export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
 
   const themes = [
-    { value: 'light', icon: <Sun className="w-4 h-4" />, label: 'Light' },
-    { value: 'dark', icon: <Moon className="w-4 h-4" />, label: 'Dark' },
-    { value: 'system', icon: <Monitor className="w-4 h-4" />, label: 'System' },
+    { value: 'light', icon: <Sun size={16} />, label: 'Light' },
+    { value: 'dark', icon: <Moon size={16} />, label: 'Dark' },
+    { value: 'system', icon: <Monitor size={16} />, label: 'System' },
   ];
 
   return (
-    <div className="flex gap-2">
+    <ButtonGroup>
       {themes.map(({ value, icon, label }) => (
-        <button
+        <Button
           key={value}
+          variant={theme === value ? 'primary' : 'outline-primary'}
           onClick={() => setTheme(value)}
-          className={`flex items-center gap-2 px-3 py-2 rounded-md transition-colors
-            ${
-              theme === value
-                ? 'bg-primary text-white dark:bg-primary-dark'
-                : 'hover:bg-gray-100 dark:hover:bg-gray-800'
-            }`}
+          className="d-flex align-items-center gap-2"
         >
           {icon}
-          <span className="text-sm">{label}</span>
-        </button>
+          <span>{label}</span>
+        </Button>
       ))}
-    </div>
+    </ButtonGroup>
   );
 }
