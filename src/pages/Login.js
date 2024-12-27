@@ -22,7 +22,7 @@ export function Login() {
 
   return (
     <div className="w-100 h-100 min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
-      <Navbar expand="lg" className="shadow-sm mb-4">
+      <Navbar expand="lg" className="shadow-sm">
         <Container>
           <Navbar.Brand className="fw-bold">Finance Tracker</Navbar.Brand>
           <Navbar.Toggle />
@@ -33,7 +33,7 @@ export function Login() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <div className="login-page min-vh-100 d-flex align-items-center position-relative overflow-hidden">
+      <div className="login-page d-flex align-items-center position-relative overflow-hidden" style={{minHeight:'90vh'}}>
         <div className="animated-background">
           <div className="circle circle-1"></div>
           <div className="circle circle-2"></div>
