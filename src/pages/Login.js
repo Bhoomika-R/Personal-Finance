@@ -34,7 +34,6 @@ export function Login() {
         </Container>
       </Navbar>
       <div className="login-page min-vh-100 d-flex align-items-center position-relative overflow-hidden">
-
         <div className="animated-background">
           <div className="circle circle-1"></div>
           <div className="circle circle-2"></div>

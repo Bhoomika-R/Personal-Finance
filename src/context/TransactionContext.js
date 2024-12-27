@@ -1,28 +1,55 @@
-import React, { createContext, useContext, useReducer, useMemo } from 'react';
+import React, { createContext, useContext, useReducer, useEffect, useMemo } from 'react';
+
+
 
 const TransactionContext = createContext();
 
+const STORAGE_KEY = 'finance_tracker_transactions';
+
 function transactionReducer(state, action) {
+  let newState;
+  
   switch (action.type) {
     case 'ADD_TRANSACTION':
-      return {
+      newState = {
         ...state,
-        transactions: [...state.transactions, action.payload],
+        transactions: [action.payload, ...state.transactions],
       };
+      break;
     case 'DELETE_TRANSACTION':
-      return {
+      newState = {
         ...state,
         transactions: state.transactions.filter((t) => t.id !== action.payload),
       };
+      break;
+    case 'SET_TRANSACTIONS':
+      newState = {
+        ...state,
+        transactions: action.payload,
+      };
+      break;
     default:
       return state;
+  }
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(newState.transactions));
+  return newState;
+}
+
+function loadInitialState() {
+  try {
+    const savedTransactions = localStorage.getItem(STORAGE_KEY);
+    return {
+      transactions: savedTransactions ? JSON.parse(savedTransactions) : [],
+    };
+  } catch (error) {
+    console.error('Error loading transactions:', error);
+    return { transactions: [] };
   }
 }
 
 export function TransactionProvider({ children }) {
-  const [state, dispatch] = useReducer(transactionReducer, {
-    transactions: [],
-  });
+  const [state, dispatch] = useReducer(transactionReducer, undefined, loadInitialState);
 
   const summary = useMemo(() => {
     const currentMonth = new Date().getMonth();

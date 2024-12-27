@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { Card, ListGroup, Badge, Button } from 'react-bootstrap';
 import { format } from 'date-fns';
 import { useTransactions } from '../context/TransactionContext';
-import { ArrowUpRight, ArrowDownRight, Eye } from 'lucide-react';
+import { ArrowUpRight, ArrowDownRight, Eye, Trash2 } from 'lucide-react';
 
 export function TransactionList() {
-  const { state } = useTransactions();
+  const { state, deleteTransaction } = useTransactions();
   const navigate = useNavigate();
 
   return (
@@ -43,6 +43,14 @@ export function TransactionList() {
                   >
                     <Eye size={18} />
                   </Button>
+                  <Button
+                      variant="light"
+                      size="sm"
+                      className="text-danger"
+                      onClick={() => deleteTransaction(transaction.id)}
+                    >
+                      <Trash2 size={18} />
+                    </Button>
                 </div>
               </ListGroup.Item>
             ))}
