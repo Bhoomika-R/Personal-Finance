@@ -1,9 +1,10 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Container, Card, Button, Badge, Row, Col } from 'react-bootstrap';
 import { format } from 'date-fns';
 import { useTransactions } from '../context/TransactionContext';
-import { ArrowLeft } from 'lucide-react';
-import { Button } from 'react-bootstrap'
+import { ArrowLeft, Calendar, DollarSign, Tag, Info } from 'lucide-react';
+
 export function TransactionDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -13,89 +14,90 @@ export function TransactionDetails() {
 
   if (!transaction) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
-        <div className="text-center">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-            Transaction not found
-          </h2>
-          <Button
-            variant="primary"
-            onClick={() => navigate('/dashboard')}
-            // className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Dashboard
-          </Button>
-        </div>
-      </div>
+      <Container className="vh-100 d-flex align-items-center justify-content-center">
+        <Card className="text-center p-5 shadow-sm border-0">
+          <Card.Body>
+            <h2 className="mb-4">Transaction not found</h2>
+            <Button variant="primary" onClick={() => navigate('/dashboard')}>
+              <ArrowLeft size={18} className="me-2" />
+              Back to Dashboard
+            </Button>
+          </Card.Body>
+        </Card>
+      </Container>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Button
-        variant="primary"
-          onClick={() => navigate('/dashboard')}
-          className="mb-8 inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Dashboard
-        </Button>
+    <Container className="py-5">
+      <Row className="justify-content-center">
+        <Col md={8} lg={6}>
+          <Button
+            variant="link"
+            className="mb-4 p-0 text-decoration-none d-inline-flex align-items-center"
+            onClick={() => navigate('/dashboard')}
+          >
+            <ArrowLeft size={18} className="me-2" />
+            Back to Dashboard
+          </Button>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
-          <div className="px-4 py-5 sm:p-6">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-              Transaction Details
-            </h2>
-
-            <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-              <div>
-                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                  Name
-                </dt>
-                <dd className="mt-1 text-lg text-gray-900 dark:text-white">
-                  {transaction.name}
-                </dd>
-              </div>
-
-              <div>
-                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                  Amount
-                </dt>
-                <dd className="mt-1 text-lg text-gray-900 dark:text-white">
+          <Card className="shadow-sm border-0">
+            <Card.Header className="bg-transparent border-0 pt-4 px-4">
+              <h4 className="mb-0 d-flex align-items-center">
+                <Info size={20} className="me-2 text-primary" />
+                Transaction Details
+              </h4>
+            </Card.Header>
+            <Card.Body className="px-4 pb-4">
+              <div className="mb-4 p-3 rounded-3" style={{ 
+                backgroundColor: transaction.type === 'income' 
+                  ? 'var(--bs-success-bg-subtle)' 
+                  : 'var(--bs-danger-bg-subtle)'
+              }}>
+                <h3 className="h2 mb-0 text-center">
                   ${transaction.amount.toFixed(2)}
-                </dd>
+                </h3>
               </div>
 
-              <div>
-                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                  Type
-                </dt>
-                <dd className="mt-1">
-                  <span
-                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${transaction.type === 'income'
-                        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-                        : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-                      }`}
-                  >
-                    {transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1)}
-                  </span>
-                </dd>
-              </div>
+              <div className="d-flex flex-column gap-3">
+                <div className="d-flex align-items-center">
+                  <div className="d-flex align-items-center text-primary me-3" style={{ width: '24px' }}>
+                    <Tag size={18} />
+                  </div>
+                  <div>
+                    <div className="text-secondary small">Name</div>
+                    <div className="fw-medium">{transaction.name}</div>
+                  </div>
+                </div>
 
-              <div>
-                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                  Date
-                </dt>
-                <dd className="mt-1 text-lg text-gray-900 dark:text-white">
-                  {format(new Date(transaction.date), 'PPP')}
-                </dd>
+                <div className="d-flex align-items-center">
+                  <div className="d-flex align-items-center text-primary me-3" style={{ width: '24px' }}>
+                    <DollarSign size={18} />
+                  </div>
+                  <div>
+                    <div className="text-secondary small">Type</div>
+                    <Badge bg={transaction.type === 'income' ? 'success' : 'danger'}>
+                      {transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1)}
+                    </Badge>
+                  </div>
+                </div>
+
+                <div className="d-flex align-items-center">
+                  <div className="d-flex align-items-center text-primary me-3" style={{ width: '24px' }}>
+                    <Calendar size={18} />
+                  </div>
+                  <div>
+                    <div className="text-secondary small">Date</div>
+                    <div className="fw-medium">
+                      {format(new Date(transaction.date), 'PPP')}
+                    </div>
+                  </div>
+                </div>
               </div>
-            </dl>
-          </div>
-        </div>
-      </div>
-    </div>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 }
