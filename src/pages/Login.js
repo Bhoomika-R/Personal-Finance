@@ -1,9 +1,9 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import { Container, Row, Col, Form, Button, Card, Navbar, Nav } from 'react-bootstrap';
+import { LogIn } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { Container, Navbar, Nav, Button } from 'react-bootstrap';
-import { ThemeSwitcher } from '../components/ThemeSwitcher';
-
+import { ThemeSwitcher } from '../components/ThemeSwitcher'
 export function Login() {
   const { login, user } = useAuth();
 
@@ -33,54 +33,63 @@ export function Login() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <div className="login-page min-vh-100 d-flex align-items-center position-relative overflow-hidden">
 
-      <div className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md">
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white mb-4">
-            Sign in to your account
-          </h2>
-          <form className="w-full mt-16" onSubmit={handleSubmit}>
-            <div className="d-flex flex-column align-items-center rounded shadow-sm gap-4">
-              <div style={{ width: '350px', borderRadius: '5px' }}>
-                <label htmlFor="email" className="form-label visually-hidden">
-                  Email address
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  className="form-control rounded-0"
-                  placeholder="Email address"
-                />
-              </div>
-              <div style={{ width: '350px', borderRadius: '5px' }}>
-                <label htmlFor="password" className="form-label visually-hidden">
-                  Password
-                </label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  required
-                  className="form-control rounded-0"
-                  placeholder="Password"
-                />
-              </div>
-              <div>
-                <Button
-                  variant="primary"
-                  type="submit"
-                  style={{width:'350px'}}
-                  className="py-2 px-4 text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                >
-                  Sign in
-                </Button>
-              </div>
-            </div>
-
-          </form>
+        <div className="animated-background">
+          <div className="circle circle-1"></div>
+          <div className="circle circle-2"></div>
+          <div className="circle circle-3"></div>
         </div>
+        <Container>
+          <Row className="justify-content-center">
+            <Col style={{ maxWidth: '500px' }}>
+              <Card className="border-0 shadow-lg animate-card">
+                <Card.Body className="p-4 p-md-5">
+                  <div className="text-center mb-4">
+                    {/* <div className="mb-4 d-inline-flex p-3 rounded-circle bg-primary bg-opacity-10">
+                    <LogIn size={32} className="text-primary" />
+                  </div> */}
+                    <h2 className="fw-bold mb-2">Welcome Back</h2>
+                    <p className="text-secondary mb-0">Enter your credentials to continue</p>
+                  </div>
+
+                  <Form onSubmit={handleSubmit}>
+                    <Form.Group className="mb-3">
+                      <Form.Label>Email address</Form.Label>
+                      <Form.Control
+                        type="email"
+                        name="email"
+                        required
+                        placeholder="name@example.com"
+                        className="py-2"
+                      />
+                    </Form.Group>
+
+                    <Form.Group className="mb-4">
+                      <Form.Label>Password</Form.Label>
+                      <Form.Control
+                        type="password"
+                        name="password"
+                        required
+                        placeholder="Enter your password"
+                        className="py-2"
+                      />
+                    </Form.Group>
+
+                    <Button
+                      type="submit"
+                      variant="primary"
+                      className="w-100 py-2 mb-3 d-flex align-items-center justify-content-center gap-2"
+                    >
+                      <LogIn size={18} />
+                      Sign In
+                    </Button>
+                  </Form>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
       </div>
     </div>
   );
