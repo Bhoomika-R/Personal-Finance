@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Card, Button, Badge, Row, Col } from 'react-bootstrap';
 import { format } from 'date-fns';
 import { useTransactions } from '../context/TransactionContext';
-import { ArrowLeft, Calendar, DollarSign, Tag, Info } from 'lucide-react';
+import { ArrowLeft, Calendar, IndianRupee, Tag, Info } from 'lucide-react';
 
 export function TransactionDetails() {
   const { id } = useParams();
@@ -72,7 +72,7 @@ export function TransactionDetails() {
 
                 <div className="d-flex align-items-center">
                   <div className="d-flex align-items-center text-primary me-3" style={{ width: '24px' }}>
-                    <DollarSign size={18} />
+                    <IndianRupee size={18} />
                   </div>
                   <div>
                     <div className="text-secondary small">Type</div>

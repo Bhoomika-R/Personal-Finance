@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
-import { DollarSign, TrendingUp, TrendingDown } from 'lucide-react';
+import { IndianRupee, TrendingUp, TrendingDown } from 'lucide-react';
 import { useTransactions } from '../context/TransactionContext';
 
 export function Summary() {
@@ -22,7 +22,7 @@ export function Summary() {
     {
       title: 'Net Balance',
       amount: summary.balance,
-      icon: <DollarSign className="text-primary" size={24} />,
+      icon: <IndianRupee className="text-primary" size={24} />,
       variant: 'primary',
     },
   ];
@@ -36,7 +36,7 @@ export function Summary() {
               <div className="d-flex justify-content-between align-items-center">
                 <div>
                   <Card.Subtitle className="text-muted mb-1">{item.title}</Card.Subtitle>
-                  <Card.Title className="mb-0">${item.amount.toFixed(2)}</Card.Title>
+                  <Card.Title className="mb-0">₹{item.amount.toFixed(2)}</Card.Title>
                 </div>
                 {item.icon}
               </div>

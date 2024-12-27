@@ -34,7 +34,7 @@ export function TransactionList() {
                 </div>
                 <div className="d-flex align-items-center gap-3">
                   <Badge bg={transaction.type === 'income' ? 'success' : 'danger'}>
-                    {transaction.type === 'income' ? '+' : '-'}${transaction.amount.toFixed(2)}
+                    {transaction.type === 'income' ? '+' : '-'}₹{transaction.amount.toFixed(2)}
                   </Badge>
                   <Button
                     variant="light"
